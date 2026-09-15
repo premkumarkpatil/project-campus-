@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusEase Lite - AI Summarizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 h-screen overflow-hidden">
+    <div class="flex h-full">
+        <!-- Left Sidebar -->
+        <aside id="left-sidebar" class="w-80 bg-white border-r border-gray-200 flex flex-col">
+            <div class="px-4 py-4 border-b border-gray-200 bg-white logo-container">
+                <div class="flex items-center gap-3">
+                    <div class="flex-shrink-0 w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center logo-icon shadow-sm">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-base font-bold text-gray-900 leading-tight tracking-tight">CampusEase Lite</h2>
+                        <p class="text-xs text-gray-500 mt-0.5 leading-tight font-medium">Your learning workspace</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Drag and Drop Zone -->
+            <div id="drop-zone" class="mx-4 mt-4 p-5 border border-dashed border-gray-300 rounded-md bg-gray-50 hover:border-gray-400 hover:bg-gray-100 transition-all cursor-pointer">
+                <div class="text-center">
+                    <svg class="w-10 h-10 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <p class="text-sm font-medium text-gray-700 mb-1">Drop PDF here</p>
+                    <p class="text-xs text-gray-500 mb-3">or click to browse</p>
+                    <button id="upload-btn" class="text-xs bg-gray-900 hover:bg-gray-800 text-white font-medium py-1.5 px-4 rounded transition-colors">
+                        Choose File
+                    </button>
+                </div>
+                <input type="file" id="pdf-input" accept=".pdf" class="hidden">
+            </div>
+
+            <!-- Content Container -->
+            <div class="flex-1 flex flex-col min-h-0 p-4 gap-4">
+                <!-- Recent Documents Section -->
+                <div class="flex flex-col min-h-0">
+                    <div class="flex items-center justify-between mb-2.5">
+                        <h3 class="text-xs font-semibold text-gray-900 uppercase tracking-wide">Recent Documents</h3>
+                        <button id="clear-docs-btn" class="text-gray-400 hover:text-gray-600 transition-colors" title="Clear all">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="recent-docs" class="flex-1 overflow-y-auto custom-scrollbar space-y-1.5 min-h-0">
+                        <!-- Recent PDFs will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Recent Activity Section -->
+                <div class="flex flex-col min-h-0 border-t border-gray-200 pt-4">
+                    <div class="flex items-center justify-between mb-2.5">
+                        <h3 class="text-xs font-semibold text-gray-900 uppercase tracking-wide">Recent Activity</h3>
+                        <button id="clear-activity-btn" class="text-gray-400 hover:text-gray-600 transition-colors" title="Clear activity">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="recent-activity" class="flex-1 overflow-y-auto custom-scrollbar space-y-1.5 min-h-0">
+                        <!-- Recent activity will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center Panel - Main Workspace -->
+        <main class="flex-1 flex flex-col bg-white">
+            <!-- Header -->
+            <header class="border-b border-gray-200 bg-white">
+                <div class="px-4 py-3">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-lg font-semibold text-gray-900">Workspace</h1>
+                            <p class="text-xs text-gray-500 mt-0.5" id="workspace-status">Ready to learn</p>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button id="clear-chat-btn" class="p-1.5 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded transition-colors" title="Clear chat">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Chat Container -->
+            <div id="chat-container" class="flex-1 overflow-y-auto px-4 py-4 custom-scrollbar">
+                <div id="chat-messages" class="max-w-2xl mx-auto space-y-4">
+                    <!-- Empty State -->
+                    <div id="empty-state" class="text-center py-16">
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-gray-100 rounded-full mb-4 border border-gray-200">
+                            <svg class="w-7 h-7 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-1.5">Start a conversation</h3>
+                        <p class="text-sm text-gray-500 mb-6">Upload a PDF to begin asking questions</p>
+                        <div class="flex flex-wrap gap-2 justify-center">
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-md text-xs font-medium bg-gray-50 text-gray-700 border border-gray-200">
+                                💡 Ask questions
+                            </span>
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-md text-xs font-medium bg-gray-50 text-gray-700 border border-gray-200">
+                                📝 Get summaries
+                            </span>
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-md text-xs font-medium bg-gray-50 text-gray-700 border border-gray-200">
+                                🎯 Explore concepts
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t border-gray-200 bg-white">
+                <div class="px-4 py-3">
+                    <form id="chat-form" class="flex items-start gap-2.5 max-w-2xl mx-auto">
+                        <div class="flex-1 relative">
+                            <textarea 
+                                id="chat-input" 
+                                rows="1"
+                                placeholder="Ask a question about the PDF..."
+                                class="chat-input w-full px-4 py-2.5 pr-12 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 resize-none disabled:bg-gray-100 disabled:cursor-not-allowed transition-all"
+                                style="min-height: 40px; max-height: 120px; overflow-y: hidden; border-radius: 9999px;"
+                                disabled
+                            ></textarea>
+                        </div>
+                        <button 
+                            type="submit" 
+                            id="send-btn"
+                            class="send-btn flex-shrink-0 bg-gray-900 hover:bg-gray-800 text-white px-5 py-2.5 text-sm rounded-full transition-all disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center h-[40px] min-w-[40px] mt-0.5"
+                            disabled
+                        >
+                            <svg class="w-4 h-4 send-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                        </button>
+                    </form>
+                    <p class="text-xs text-gray-400 mt-2 text-center max-w-2xl mx-auto">Press Enter to send, Shift+Enter for new line</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside id="right-sidebar" class="w-80 bg-white border-l border-gray-200 flex flex-col">
+            <div class="px-4 py-3 border-b border-gray-200 bg-white">
+                <h2 class="text-lg font-semibold text-gray-900">AI Tools</h2>
+                <p class="text-xs text-gray-500 mt-0.5">Transform your learning experience</p>
+            </div>
+            
+            <!-- AI Tools Cards Grid -->
+            <div class="flex-1 overflow-y-auto p-4 custom-scrollbar">
+                <div id="ai-tools-grid" class="grid grid-cols-2 gap-2.5 mb-8">
+                    <!-- Flashcards Card -->
+                    <div class="tool-card bg-white border border-gray-200 rounded-md p-3 cursor-pointer hover:shadow-sm hover:border-gray-300 transition-all" data-tool="flashcards">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center mb-2 border border-gray-200">
+                                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold text-xs text-gray-900 mb-0.5">AI Flashcards</h3>
+                            <p class="text-xs text-gray-500">Auto-generate from notes</p>
+                        </div>
+                    </div>
+
+                    <!-- Mnemonics Card -->
+                    <div class="tool-card bg-white border border-gray-200 rounded-md p-3 cursor-pointer hover:shadow-sm hover:border-gray-300 transition-all" data-tool="mnemonics">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center mb-2 border border-gray-200">
+                                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold text-xs text-gray-900 mb-0.5">Mnemonics</h3>
+                            <p class="text-xs text-gray-500">Memory aids generator</p>
+                        </div>
+                    </div>
+
+                    <!-- Mind Map Card -->
+                    <div class="tool-card bg-white border border-gray-200 rounded-md p-3 cursor-pointer hover:shadow-sm hover:border-gray-300 transition-all" data-tool="mindmap">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center mb-2 border border-gray-200">
+                                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold text-xs text-gray-900 mb-0.5">Mind Maps</h3>
+                            <p class="text-xs text-gray-500">Neural concept maps</p>
+                        </div>
+                    </div>
+
+                    <!-- Resources Card -->
+                    <div class="tool-card bg-white border border-gray-200 rounded-md p-3 cursor-pointer hover:shadow-sm hover:border-gray-300 transition-all" data-tool="resources">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center mb-2 border border-gray-200">
+                                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold text-xs text-gray-900 mb-0.5">Resources</h3>
+                            <p class="text-xs text-gray-500">Learning materials</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pro Tip Section -->
+                <div class="bg-gray-50 border border-gray-200 rounded-md p-3 mb-8">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-4 h-4 text-gray-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <p class="text-xs font-semibold text-gray-900 mb-1">Pro Tip</p>
+                            <p class="text-xs text-gray-600">Upload your study materials first to unlock all AI-powered features</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="mb-8">
+                    <h3 class="text-xs font-semibold text-gray-900 uppercase tracking-wide mb-2.5">
+                        Quick Actions
+                    </h3>
+                
+                    <div class="space-y-3"> 
+                        <button class="quick-action-btn w-full flex items-center gap-2.5 px-3 py-2 bg-white border border-gray-200 rounded-md hover:bg-gray-50 hover:border-gray-300 transition-all text-left" data-action="flashcards">
+                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                            <span class="text-xs text-gray-900 font-medium">View All Flashcards</span>
+                        </button>
+                
+                        <button class="quick-action-btn w-full flex items-center gap-2.5 px-3 py-2 bg-white border border-gray-200 rounded-md hover:bg-gray-50 hover:border-gray-300 transition-all text-left" data-action="mindmap">
+                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                            </svg>
+                            <span class="text-xs text-gray-900 font-medium">Browse Mind Maps</span>
+                        </button>
+                
+                        <button class="quick-action-btn w-full flex items-center gap-2.5 px-3 py-2 bg-white border border-gray-200 rounded-md hover:bg-gray-50 hover:border-gray-300 transition-all text-left" data-action="mnemonics">
+                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                            <span class="text-xs text-gray-900 font-medium">View Mnemonics</span>
+                        </button>
+                    </div>
+                </div>
+                
+
+                <!-- Content Display Area -->
+                <div id="tool-content" class="mt-4">
+                    <!-- Content will be displayed here when tools are clicked -->
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="prompts.js"></script>
+    <script src="gemini-api.js"></script>
+    <script src="pdf-extractor.js"></script>
+    <script src="storage-manager.js"></script>
+    <script src="components/left-sidebar.js"></script>
+    <script src="components/center-chat.js"></script>
+    <script src="components/right-sidebar.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+

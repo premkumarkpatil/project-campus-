@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusEase Lite - AI-Powered Learning Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="border-b border-gray-200 bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-14">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 bg-gray-900 rounded-lg flex items-center justify-center">
+                        <svg class="w-4.5 h-4.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-sm font-bold text-gray-900 leading-tight">CampusEase Lite</h1>
+                        <p class="text-xs text-gray-500 leading-tight">Your learning workspace</p>
+                    </div>
+                </div>
+                <a href="dashboard.html" class="px-4 py-2 bg-gray-900 text-white text-xs font-medium rounded-md hover:bg-gray-800 transition-colors">
+                    Go to Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-white overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-[0.03]">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle, #000 1px, transparent 1px); background-size: 24px 24px;"></div>
+        </div>
+        
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-transparent"></div>
+        
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+            <div class="text-center">
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
+                    Transform Your Learning Experience
+                </h2>
+                <p class="text-lg md:text-xl lg:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+                    AI-powered study tools that help you understand, remember, and master any subject. Upload your PDFs and let AI do the rest.
+                </p>
+                <div class="flex items-center justify-center gap-3">
+                    <a href="dashboard.html" class="px-8 py-3 bg-gray-900 text-white text-base font-medium rounded-md hover:bg-gray-800 transition-colors shadow-sm">
+                        Get Started
+                    </a>
+                    <a href="#features" class="px-8 py-3 bg-white text-gray-900 text-base font-medium rounded-md border border-gray-300 hover:bg-gray-50 transition-colors">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="bg-gray-50 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Powerful Features</h3>
+                <p class="text-base text-gray-600">Everything you need to excel in your studies</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Feature 1: AI Flashcards -->
+                <div class="bg-white border border-gray-200 rounded-md p-5 hover:shadow-md transition-shadow">
+                    <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center mb-3 border border-gray-200">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-base font-semibold text-gray-900 mb-1.5">AI Flashcards</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Automatically generate interactive flashcards from your study materials for efficient memorization and active recall.</p>
+                </div>
+
+                <!-- Feature 2: Mnemonics -->
+                <div class="bg-white border border-gray-200 rounded-md p-5 hover:shadow-md transition-shadow">
+                    <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center mb-3 border border-gray-200">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-base font-semibold text-gray-900 mb-1.5">Mnemonics</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Create memory aids and learning techniques to help you remember complex information easily and effectively.</p>
+                </div>
+
+                <!-- Feature 3: Mind Maps -->
+                <div class="bg-white border border-gray-200 rounded-md p-5 hover:shadow-md transition-shadow">
+                    <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center mb-3 border border-gray-200">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-base font-semibold text-gray-900 mb-1.5">Mind Maps</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Visualize concepts and relationships with interactive, draggable mind maps generated from your content.</p>
+                </div>
+
+                <!-- Feature 4: Resources -->
+                <div class="bg-white border border-gray-200 rounded-md p-5 hover:shadow-md transition-shadow">
+                    <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center mb-3 border border-gray-200">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-base font-semibold text-gray-900 mb-1.5">Resources</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Get curated external resources and learning materials to deepen your understanding of any topic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center mb-10">
+            <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Why Choose CampusEase Lite?</h3>
+            <p class="text-base text-gray-600">Designed for students who want to learn smarter, not harder</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="flex items-start gap-3">
+                <div class="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200">
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 mb-1">Save Time</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Automate study material creation and focus on learning instead of organizing.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+                <div class="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200">
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 mb-1">Better Retention</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Use proven learning techniques like spaced repetition and active recall for better memory.</p>
+                </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+                <div class="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-md flex items-center justify-center border border-gray-200">
+                    <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold text-gray-900 mb-1">Comprehensive</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Get summaries, flashcards, mnemonics, mind maps, and resources all in one place.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="bg-gray-50 py-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">How It Works</h3>
+                <p class="text-base text-gray-600">Get started in three simple steps</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 border border-gray-200">
+                        <span class="text-xl font-bold text-gray-900">1</span>
+                    </div>
+                    <h4 class="text-base font-semibold text-gray-900 mb-1.5">Upload Your PDF</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Simply drag and drop or upload your study materials in PDF format. Our system supports all standard PDF documents.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 border border-gray-200">
+                        <span class="text-xl font-bold text-gray-900">2</span>
+                    </div>
+                    <h4 class="text-base font-semibold text-gray-900 mb-1.5">AI Processing</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Our advanced AI analyzes your content and generates a comprehensive summary automatically, extracting key concepts and information.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 border border-gray-200">
+                        <span class="text-xl font-bold text-gray-900">3</span>
+                    </div>
+                    <h4 class="text-base font-semibold text-gray-900 mb-1.5">Start Learning</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">Generate flashcards, mnemonics, mind maps, and more to enhance your learning experience and improve retention.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center mb-10">
+            <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Perfect For</h3>
+            <p class="text-base text-gray-600">Ideal for students, professionals, and lifelong learners</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-gray-50 border border-gray-200 rounded-md p-5">
+                <h4 class="text-sm font-semibold text-gray-900 mb-2">University Students</h4>
+                <p class="text-xs text-gray-600 leading-relaxed">Master complex subjects with AI-generated study materials. Perfect for exam preparation and understanding difficult concepts.</p>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-md p-5">
+                <h4 class="text-sm font-semibold text-gray-900 mb-2">Professional Development</h4>
+                <p class="text-xs text-gray-600 leading-relaxed">Learn new skills and stay updated with industry knowledge. Transform training materials into actionable learning resources.</p>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-md p-5">
+                <h4 class="text-sm font-semibold text-gray-900 mb-2">Research & Study</h4>
+                <p class="text-xs text-gray-600 leading-relaxed">Organize research papers and academic materials. Create visual mind maps to understand relationships between concepts.</p>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-md p-5">
+                <h4 class="text-sm font-semibold text-gray-900 mb-2">Language Learning</h4>
+                <p class="text-xs text-gray-600 leading-relaxed">Generate vocabulary flashcards and memory aids. Perfect for learning new languages and retaining vocabulary.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-gray-900 py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-3">Ready to Transform Your Learning?</h3>
+            <p class="text-base text-gray-300 mb-6">Join thousands of students who are already using CampusEase Lite to excel in their studies.</p>
+            <a href="dashboard.html" class="inline-block px-8 py-3 bg-white text-gray-900 text-sm font-medium rounded-md hover:bg-gray-100 transition-colors shadow-sm">
+                Get Started Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 bg-white py-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center">
+                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-900">CampusEase Lite</p>
+                        <p class="text-xs text-gray-500">Your learning workspace</p>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500">© 2024 CampusEase Lite. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
